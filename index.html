@@ -117,19 +117,20 @@
         e.preventDefault();
         let text = $('#text').val();
         let body = $('#body').val();
-        let id = $('#editid').val();
-        console.log(id);
-        EditItem(id);
+        let id = parseInt($('#editid').val());
+        
+        console.log(jQuery.type(id));
+        EditItem(id,body,text);
       });
 
       //Edit item through api
-      function EditItem(id){
+      function EditItem(id,body,text){
         $.ajax({
           url:'http://restapi.test/api/items/'+id,
           method:'POST',
-          data:{_method:'PUT',text:text,body:body}
+          data:{text:text,body:body,_method:'PUT'}
         }).done(function(item){
-          alert('Item #'+item.id+' added');
+          alert('Item #'+item.id+' updated');
           Clear();
           location.reload();
         });
